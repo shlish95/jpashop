@@ -2,7 +2,7 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,19 +10,15 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MemberService {
 
-    private MemberRepository memberRepository;
-
-    @Autowired
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+    private final MemberRepository memberRepository;
 
     /**
      * 회원 가입
      */
-    @Transactional //readOnly가 true일 경우 데이터 수정이 안됨
+    @Transactional //readOnly가 true일 경우 데이터 수정이 안됨 false가 default
     public Long join(Member member) {
         validateDuplicateMember(member); //중복회원 검증
         memberRepository.save(member);
