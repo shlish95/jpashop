@@ -105,6 +105,11 @@ public class OrderApiController {
         return orderQueryRepository.findOrderQueryDtos();
     }
 
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
+
     @Getter
     static class OrderDto {
         private Long orderId;
@@ -112,7 +117,7 @@ public class OrderApiController {
         private LocalDateTime orderDate;
         private OrderStatus orderStatus;
         private Address address;
-//        private List<OrderItem> orderItems; //OrderItem에 대한 엔티티가 노출
+        //        private List<OrderItem> orderItems; //OrderItem에 대한 엔티티가 노출
         private List<OrderItemDto> orderItems;
 
         public OrderDto(Order order) {
